@@ -1,4 +1,3 @@
-
 services:
   n8n:
     image: n8nio/n8n
@@ -22,12 +21,22 @@ services:
 
   db:
     image: postgres:12
+    container_name: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=n8n
       - POSTGRES_PASSWORD=n8n
       - POSTGRES_DB=n8n
+    restart: unless-stopped
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
     restart: unless-stopped
 
 volumes:
