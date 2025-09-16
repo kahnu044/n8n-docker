@@ -36,6 +36,23 @@ http://localhost:5678
 ```
 Create an admin account first, then login using that credentials
 
+### 5. Access Adminer
+
+Open your browser:
+
+```
+http://localhost:8080
+```
+Config the database
+```
+System - PostgreSQL
+Server - db
+Username - n8n
+Password - n8n
+Database - n8n
+```
+
+
 ## 🔧 Configuration
 
 Here's a breakdown of the key environment variables:
@@ -79,7 +96,7 @@ PostgreSQL data is stored in a Docker volume named `db-data`, which ensures your
 
 ## 📌 Notes
 
-* Make sure ports like `5678` (for n8n) and `5432` (for PostgreSQL) are not blocked or already in use.
+* Make sure ports like `5678` (for n8n), `5432` (for PostgreSQL) and `8080` (for adminer) are not blocked or already in use.
 * Change the credentials in a `.env` file or use Docker secrets for production deployments.
 
 ## 📃 License
