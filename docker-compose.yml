@@ -15,6 +15,8 @@ services:
       - DB_POSTGRESDB_USER=n8n
       - DB_POSTGRESDB_PASSWORD=n8n
       - NODE_FUNCTION_ALLOW_EXTERNAL=axios,qs
+      # Webhook settings
+      - WEBHOOK_URL=https://n8n.developernoob.com/
     depends_on:
       - db
     restart: unless-stopped
