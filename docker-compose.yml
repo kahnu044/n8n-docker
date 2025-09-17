@@ -18,8 +18,8 @@ services:
       - DB_POSTGRESDB_PASSWORD=n8n
       - N8N_PUSH_BACKEND=websocket
       - N8N_TRUSTED_PROXIES=0.0.0.0/0
-      - N8N_HOST=n8n.developernoob.com  #(Replace with your domain)
-      - WEBHOOK_URL=https://n8n.developernoob.com #(Replace with your domain)
+      - N8N_HOST=n8n.yourdomain.com  #(Replace with your domain)
+      - WEBHOOK_URL=https://n8n.yourdomain.com #(Replace with your domain)
     depends_on:
       - db
     volumes:
