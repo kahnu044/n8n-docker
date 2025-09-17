@@ -9,6 +9,7 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=user # change to strong username
       - N8N_BASIC_AUTH_PASSWORD=password # change to strong password
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - DB_TYPE=postgresdb
       - DB_POSTGRESDB_HOST=db
       - DB_POSTGRESDB_PORT=5432
