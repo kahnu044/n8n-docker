@@ -92,7 +92,57 @@ Data is stored in Docker volumes to ensure persistence:
 ```
 .
 ├── docker-compose.yml     # Docker Compose config
+├── http-nginx.conf        # Example of nginx HTTP config
+├── https-nginx.conf       # Example of nginx HTTPS config
 └── README.md              # Project documentation
+```
+
+###  Optional: Nginx Reverse Proxy Setup
+
+If you want to expose n8n on a domain securely, you can use Nginx as a reverse proxy. This is recommended for production setups.
+
+```nginx
+server {
+    listen 80;
+    server_name n8n.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:5678;
+
+        # Required for WebSockets
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # Pass headers
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Prevent timeout issues
+        proxy_read_timeout 3600;
+        proxy_connect_timeout 3600;
+    }
+}
+```
+
+This ensures:
+
+1. n8n editor works behind a proxy.
+2. Webhooks and WebSocket connections function correctly.
+3. Optional SSL termination for secure access.
+
+Reload Nginx after editing:
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+Enable SSL via [Certbot](https://certbot.eff.org/) if using Nginx.
+```
+sudo certbot --nginx -d n8n.yourdomain.com
 ```
 
 ## 📌 Notes
@@ -103,7 +153,6 @@ Data is stored in Docker volumes to ensure persistence:
 
   * Always change default credentials.
   * Use `.env` files or Docker secrets.
-  * Enable SSL via [Certbot](https://certbot.eff.org/) if using Nginx.
 
 ## 📃 License
 
